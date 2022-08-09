@@ -24,9 +24,6 @@ ul, ol {
     margin: 0 auto;
     padding-left: 15px;
     padding-right: 15px;
-    
-    /* outline: 1px solid red; */
-
 }
 
 body {
@@ -44,6 +41,36 @@ body {
 
 .link.current {
     color: var(--accent-color);
+}
+
+.link.hidden::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+
+    display: block;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background-color: var(--accent-color);
+
+    opacity: 0;
+    transform: scaleX(0);
+    transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1), transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.link.current::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+
+    display: block;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background-color: var(--accent-color);
 }
 
 img {
@@ -96,6 +123,8 @@ img {
 }
 
 .header-link {
+    position: relative;
+
     padding-top: 32px;
     padding-bottom: 32px;
     display: block;
@@ -107,6 +136,8 @@ img {
     color: var(--basic-text-color);
     transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+
 
 .header-list {
     display: flex;
@@ -157,6 +188,12 @@ img {
 .header-tel:focus { 
     color: var(--accent-color);
 } 
+
+.header-link:hover.link.hidden::after,
+.header-link:focus.link.hidden::after {
+    opacity: 1;
+    transform: scaleX(1);
+}
 
 /*-------------------------------------------------------HERO-------------------------------------------------------*/
 
@@ -283,6 +320,29 @@ img {
     margin-top: 50px;
     display: flex;
     justify-content: space-between;
+}
+
+.work-item {
+    position: relative;
+}
+
+.work-item-subtitel {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.14;
+    text-align: center;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--first-background-color);
+    background-color: rgba(47, 48, 58, 0.8);
+
+    display: block;
+    width: 100%;
+    padding: 27px;
 }
 
 /*-------------------------------------------------------TEAM-------------------------------------------------------*/
@@ -539,6 +599,66 @@ img {
     background-color: var(--accent-color);
 }
 
+/*----------------------------------------------------MODAL WINDOW---------------------------------------------------------*/
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+
+    transition: opacity 1000ms cubic-bezier(0.4, 0, 0.2, 1), visibility 1000ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.backdrop.is-hidden {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* .backdrop.is-hidden .model {
+    transform: scale(1);
+} */
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* transform: scale(1); */
+    transition: transform 1000ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    width: 528px;
+    min-height: 581px;
+    border-radius: 4px;
+
+    background-color: var(--first-background-color); 
+}
+
+.model-close-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+
+    display: flex;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.model-close-icon {
+    width: 18px;
+    height: 18px;
+}
+
 /*----------------------------------------------------PAGE PORTFOLIO-------------------------------------------------------*/
 
 .portfolio {
@@ -613,7 +733,8 @@ img {
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06), 1px 4px 6px rgba(0, 0, 0, 0.16);
 }
 
-.examples-link:hover .examples-text {
+.examples-link:hover .examples-text,
+.examples-link:focus .examples-text {
     transform: translateY(0);
 }
 
@@ -625,14 +746,16 @@ img {
 .examples-text {
     position: absolute;
     top: 0;
+    left: 0;
     font-weight: 400;
     font-size: 18px;
     line-height: 1.56;
     letter-spacing: 0.03em;
     color: #FFFFFF;
     background-color: rgba(33, 150, 243, 0.9);
+    height: 100%;
     padding: 63px 24px;
-    transform: translateY(100%);
+    transform: translateY(101%);
     transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);   
 }
 
